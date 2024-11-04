@@ -1,11 +1,13 @@
 const Product = require("../models/productsModel");
 
-// exports.getProducts = (req, res, next) => {
-//   res.status(200).json({
-//     sucess: true,
-//     message: "This will show all the product in database",
-//   });
-// };
+//Get Products  - /api/v1/products
+exports.getProducts = async (req, res, next) => {
+  const products = await Product.find();
+  res.status(200).json({
+    sucess: true,
+    products,
+  });
+};
 
 // Create Product - /api/v1/product/new
 exports.newProduct = async (req, res, next) => {
@@ -15,3 +17,5 @@ exports.newProduct = async (req, res, next) => {
     product,
   });
 };
+
+exports.GetSingleProduct = async (req, res, next) => {};
