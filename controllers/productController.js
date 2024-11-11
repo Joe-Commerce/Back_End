@@ -18,7 +18,7 @@ exports.newProduct = async (req, res, next) => {
   });
 };
 
-// Get the single Products
+// Get the single Products - api/v1/products/:id
 exports.GetSingleProduct = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
@@ -34,7 +34,7 @@ exports.GetSingleProduct = async (req, res, next) => {
   });
 };
 
-//Update products
+//Update products - api/v1/products/:id
 exports.updateProducts = async (req, res) => {
   let product = await Product.findById(req.params.id);
 
@@ -52,5 +52,22 @@ exports.updateProducts = async (req, res) => {
   res.status(200).json({
     success: true,
     product,
+  });
+};
+
+exports.deleteProduct = async (req, res) => {
+  let product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return res.status(404).json({
+      sucess: false,
+      message: "Product not found",
+    });
+  }
+
+  await Product.deleteOne({ _id: req.params.id });
+  res.status(200).json({
+    sucess: true,
+    message: "Product delete successfully",
   });
 };
