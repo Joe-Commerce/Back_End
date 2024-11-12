@@ -6,6 +6,7 @@ module.exports = (err, req, res, next) => {
       success: false,
       message: err.message,
       stack: err.stack,
+      error: err,
     });
   }
   if (process.env.NODE_ENV == "Production") {
