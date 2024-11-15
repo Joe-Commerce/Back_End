@@ -24,7 +24,10 @@ class APIFeatures {
 
     removeField.forEach((field) => delete queryStrCopy[field]);
 
-    this.query.find(queryStrCopy);
+    let queryStr = JSON.stringify(queryStrCopy);
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)/g, (match) => `$${match}`);
+
+    this.query.find(JSON.parse(queryStr));
     return this;
   }
 }
