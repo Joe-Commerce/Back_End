@@ -4,8 +4,8 @@ const errorMiddleware = require("../back-end/middlewares/error");
 
 const products = require("./routes/product");
 
-app.use(express.json()); // Include middleware for JSON handling
-app.use("/api/v1", products); // Setup route for products
+app.use(express.json());
+app.use("/api/v1", products);
 
 app.use(errorMiddleware);
 
