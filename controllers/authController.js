@@ -10,8 +10,12 @@ exports.registerUser = catchAsync(async (req, res, next) => {
     password,
     avatar,
   });
+
+  const tokens = user.getJwtToken();
+
   res.status(201).json({
     success: true,
     user,
+    tokens,
   });
 });
