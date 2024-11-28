@@ -37,7 +37,9 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.getJwtToken = function () {
-  jwt.sign();
+  return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 };
 
 let model = mongoose.model("user", userSchema);
