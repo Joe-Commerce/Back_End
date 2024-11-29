@@ -9,7 +9,9 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 
-router.get("/products", getProducts);
+const { isAuthenticatedUser } = require("../middlewares/authenticate");
+
+router.get("/products", isAuthenticatedUser, getProducts);
 
 router.get("/products/:id", GetSingleProduct);
 
