@@ -50,13 +50,53 @@ exports.logoutUser = (req, res, next) => {
     });
 };
 
+// exports.forgotPassword = catchAsync(async (req, res, next) => {
+//   const user = User.findOne({ email: req.body.email });
+
+//   if (!user) {
+//     return next(new ErrorHandler("User not found with this email", 404));
+//   }
+
+//   const resetToken = user.getResetToken();
+//   user.save({ validateBeforeSave: false });
+// });
+
 exports.forgotPassword = catchAsync(async (req, res, next) => {
-  const user = User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
     return next(new ErrorHandler("User not found with this email", 404));
   }
 
   const resetToken = user.getResetToken();
-  user.save({ validateBeforeSave: false });
+  await user.save({ validateBeforeSave: false });
+
+  let BASE_URL = process.env.FRONTEND_URL;
+  if (process.env.NODE_ENV === "production") {
+    BASE_URL = `${req.protocol}://${req.get("host")}`;
+  }
+
+  //Create reset url
+  const resetUrl = `${BASE_URL}/password/reset/${resetToken}`;
+
+  const message = `Your password reset url is as follows \n\n 
+    ${resetUrl} \n\n If you have not requested this email, then ignore it.`;
+
+  try {
+    sendEmail({
+      email: user.email,
+      subject: "JVLcart Password Recovery",
+      message,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to ${user.email}`,
+    });
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordTokenExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+    return next(new ErrorHandler(error.message), 500);
+  }
 });
