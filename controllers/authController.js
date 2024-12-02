@@ -49,3 +49,14 @@ exports.logoutUser = (req, res, next) => {
       message: "Logged out",
     });
 };
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  const user = User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new ErrorHandler("User not found with this email", 404));
+  }
+
+  const resetToken = user.getResetToken();
+  user.save({ validateBeforeSave: false });
+});
