@@ -2,6 +2,7 @@ const catchAsync = require("../middlewares/catchAsyncError");
 const User = require("../models/userModels");
 const ErrorHandler = require("../utils/errorHandler");
 const sendToken = require("../utils/jwt");
+const sendEmail = require("../utils/email");
 
 // Create the user Data
 exports.registerUser = catchAsync(async (req, res, next) => {
@@ -85,7 +86,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   try {
     sendEmail({
       email: user.email,
-      subject: "JVLcart Password Recovery",
+      subject: "EaseMart Password Recovery",
       message,
     });
 
