@@ -36,6 +36,12 @@ module.exports = (err, req, res, next) => {
       err.statusCode = 400;
     }
 
+    if (err.name == "TokenExpiredError") {
+      let message = `JSON Web Token is expired. Try again`;
+      error = new Error(message);
+      err.statusCode = 400;
+    }
+
     res.status(err.statusCode).json({
       success: false,
       message: err.message || "Internal Server Error",
