@@ -39,6 +39,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   sendToken(user, 201, res);
 });
 
+//Logout the user
 exports.logoutUser = (req, res, next) => {
   res
     .cookie("token", null, {
@@ -52,6 +53,7 @@ exports.logoutUser = (req, res, next) => {
     });
 };
 
+//Forgot Password
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
@@ -92,6 +94,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
+//Reset Password
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const resetPasswordToken = crypto
     .createHash("sha256")
