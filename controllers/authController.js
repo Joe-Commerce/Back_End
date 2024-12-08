@@ -125,3 +125,12 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   sendToken(user, 200, res);
 });
+
+//Get the Users details
+exports.getUserProfile = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
