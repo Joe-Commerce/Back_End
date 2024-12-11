@@ -170,3 +170,13 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
     user,
   });
 });
+
+//Get all the users
+
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
