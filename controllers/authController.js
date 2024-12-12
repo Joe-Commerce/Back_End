@@ -171,7 +171,7 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
   });
 });
 
-//Get all the users
+//Get all the users : Admin
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
@@ -181,7 +181,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
-//Get Specific user
+//Get Specific user : Admin
 
 exports.getUser = catchAsync(async (req, res, next) => {
   const users = await User.findById(req.params.id);
@@ -193,5 +193,24 @@ exports.getUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     success: true,
     users,
+  });
+});
+
+//Update User : Admin
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    user,
   });
 });
