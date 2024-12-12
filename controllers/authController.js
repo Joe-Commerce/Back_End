@@ -180,3 +180,18 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     users,
   });
 });
+
+//Get Specific user
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const users = await User.findById(req.params.id);
+
+  if (!users) {
+    return next(new ErrorHandler(`users id not found ${req.params.id}`));
+  }
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
