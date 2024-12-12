@@ -172,7 +172,6 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
 });
 
 //Get all the users : Admin
-
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
@@ -182,17 +181,16 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 //Get Specific user : Admin
-
 exports.getUser = catchAsync(async (req, res, next) => {
-  const users = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id);
 
-  if (!users) {
+  if (!user) {
     return next(new ErrorHandler(`users id not found ${req.params.id}`));
   }
 
   res.status(200).json({
     success: true,
-    users,
+    user,
   });
 });
 
@@ -212,5 +210,20 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
+  });
+});
+
+//Delete user : admin
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return next(new ErrorHandler(`users id not found ${req.params.id}`));
+  }
+
+  await user.remove();
+
+  res.status(200).json({
+    success: true,
+    users,
   });
 });
