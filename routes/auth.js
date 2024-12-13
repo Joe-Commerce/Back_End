@@ -22,4 +22,6 @@ router.get("/myprofile", isAuthenticatedUser, getUserProfile);
 router.put("/password/change", isAuthenticatedUser, changePassword);
 router.put("/update", isAuthenticatedUser, updateProfile);
 
+//Admin Routes
+//router.get("");
 module.exports = router;
