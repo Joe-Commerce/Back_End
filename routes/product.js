@@ -18,15 +18,16 @@ router.get("/products", isAuthenticatedUser, getProducts);
 
 router.get("/products/:id", GetSingleProduct);
 
+router.put("/products/:id", updateProducts);
+
+router.delete("/products/:id", deleteProduct);
+
+//Admin Routes
 router.post(
-  "/product/new",
+  "/admin/product/new",
   isAuthenticatedUser,
   authorizeRoles("admin"),
   newProduct
 );
-
-router.put("/products/:id", updateProducts);
-
-router.delete("/products/:id", deleteProduct);
 
 module.exports = router;
