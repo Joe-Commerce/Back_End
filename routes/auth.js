@@ -10,6 +10,7 @@ const {
   changePassword,
   updateProfile,
   getAllUsers,
+  getUser,
 } = require("../controllers/authController");
 
 const {
@@ -32,5 +33,12 @@ router.get(
   isAuthenticatedUser,
   authorizeRoles("admin"),
   getAllUsers
+);
+
+router.get(
+  "/admin/user/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getUser
 );
 module.exports = router;
