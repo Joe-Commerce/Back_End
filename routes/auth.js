@@ -29,7 +29,7 @@ router.get("/myprofile", isAuthenticatedUser, getUserProfile);
 router.put("/password/change", isAuthenticatedUser, changePassword);
 router.put("/update", isAuthenticatedUser, updateProfile);
 
-//Admin Routes
+//Routes for admin
 router.get(
   "/admin/users",
   isAuthenticatedUser,
