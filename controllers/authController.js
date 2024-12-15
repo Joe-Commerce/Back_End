@@ -171,7 +171,7 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
   });
 });
 
-//Get all the users : Admin
+//Get all the users by Admin
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
@@ -180,7 +180,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
-//Get Specific user : Admin
+//Get Specific user by Admin
 exports.getUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
@@ -194,7 +194,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-//Update User : Admin
+//Update User by Admin
 exports.updateUser = catchAsync(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
@@ -213,7 +213,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   });
 });
 
-//Delete user : admin
+//Delete user by admin
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
