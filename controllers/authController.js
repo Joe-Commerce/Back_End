@@ -135,7 +135,7 @@ exports.getUserProfile = catchAsync(async (req, res, next) => {
   });
 });
 
-//change Password -- user
+//change Password
 
 exports.changePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
@@ -153,7 +153,7 @@ exports.changePassword = catchAsync(async (req, res, next) => {
   });
 });
 
-//update profile -- user
+//update profile
 exports.updateProfile = catchAsync(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
