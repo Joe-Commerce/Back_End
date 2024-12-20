@@ -220,12 +220,10 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     return next(new ErrorHandler(`users id not found ${req.params.id}`));
   }
 
-  await user.remove();
+  await user.deleteOne();
 
   res.status(200).json({
     success: true,
     user,
   });
 });
-
-/// this is the change
