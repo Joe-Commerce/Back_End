@@ -44,3 +44,9 @@ exports.getSingleOrder = catchAsync(async (req, res, next) => {
     order,
   });
 });
+
+//Get all the order for the login user - /api/v1/oder/myorders
+
+exports.myOrders = catchAsync(async (req, res, next) => {
+  const order = Order.find({ user: req.user.id });
+});
