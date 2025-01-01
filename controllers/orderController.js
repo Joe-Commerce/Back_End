@@ -36,7 +36,7 @@ exports.newOrder = catchAsync(async (req, res, next) => {
 exports.getSingleOrder = catchAsync(async (req, res, next) => {
   const order = Order.findById(req.params.Date).populate("user", "name email");
   if (!order) {
-    return next(new ErrorHandler("Order is not with id", 404));
+    return next(new ErrorHandler(`Order is not with id ${req.params.id}`, 404));
   }
 
   res.status(200).json({
