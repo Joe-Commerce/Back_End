@@ -10,6 +10,7 @@ const { isAuthenticatedUser } = require("../middlewares/authenticate");
 
 router.post("/order/new", isAuthenticatedUser, newOrder);
 router.get("/order/id", isAuthenticatedUser, getSingleOrder);
+//router.get("/myOrders", isAuthenticatedUser, myOrders);
 router.get("/myOrders", isAuthenticatedUser, myOrders);
 
 module.exports = router;
